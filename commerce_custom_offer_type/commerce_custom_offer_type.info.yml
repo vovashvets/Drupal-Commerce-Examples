@@ -1,0 +1,5 @@
+name: 'Commerce custom offer type'
+type: module
+description: 'Provides commerce custom offer type.'
+package: Custom
+core_version_requirement: ^8 || ^9

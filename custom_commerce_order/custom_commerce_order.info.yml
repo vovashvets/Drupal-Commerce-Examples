@@ -1,0 +1,5 @@
+name: 'Custom commerce Order'
+type: module
+description: 'Provides custom order, email template, event subscriber and order bonus'
+package: Commerce
+core_version_requirement: ^8 || ^9

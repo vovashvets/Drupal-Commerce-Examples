@@ -1,0 +1,13 @@
+services:
+  # Order refresh process to apply a bonus adjustment to orders.
+  # We set the priority very low so it calculates last.
+  custom_commerce_cart.bonus_order_processor:
+    class: Drupal\custom_commerce_order\OrderProcessor\BonusOrderProcessor
+    tags:
+      - { name: commerce_order.order_processor, priority: -300 }
+
+  custom_commerce_order.order_fulfillment_subscriber:
+    class: Drupal\custom_commerce_order\EventSubscriber\OrderFulfillmentSubscriber
+    arguments: ['@language_manager', '@plugin.manager.mail']
+    tags:
+      - { name: event_subscriber }

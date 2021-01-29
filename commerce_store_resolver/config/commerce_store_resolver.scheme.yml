@@ -1,0 +1,7 @@
+store.store:
+  type: config_object
+  label: 'Chosen Store'
+  mapping:
+    store_id:
+      type: integer
+      label: 'Id of the store that will be used'

@@ -1,0 +1,5 @@
+name: "Commerce Tax Resolver"
+type: module
+description: 'Provides Commerce Tax Resolver. Different tax for different product types.'
+package: Custom
+core_version_requirement: ^8.8 || ^9

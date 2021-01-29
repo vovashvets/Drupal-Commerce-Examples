@@ -1,0 +1,20 @@
+custom_commerce_order_workflow:
+  id: custom_commerce_order_workflow
+  group: commerce_order
+  label: 'Custom workflow'
+  states:
+    draft:
+      label: Draft
+    completed:
+      label: Completed
+    canceled:
+      label: Canceled
+  transitions:
+    place:
+      label: 'Place order'
+      from: [draft]
+      to: completed
+    cancel:
+      label: 'Cancel order'
+      from: [draft]
+      to:   canceled

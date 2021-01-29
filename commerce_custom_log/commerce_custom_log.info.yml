@@ -1,0 +1,5 @@
+name: 'Commerce Custom Log'
+type: module
+description: 'Provides logs on order page when users empties theirs carts.'
+package: Custom
+core_version_requirement: ^8 || ^9

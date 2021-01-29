@@ -1,0 +1,5 @@
+services:
+  commerce_tax_resolver.product_tax_resolver:
+    class: Drupal\commerce_tax_resolver\Resolver\ProductTaxResolver
+    tags:
+      - { name: commerce_tax.tax_rate_resolver, priority: 100 }

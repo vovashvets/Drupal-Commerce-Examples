@@ -1,0 +1,6 @@
+services:
+  commerce_store_resolver.cookie_store_resolver:
+    class: Drupal\commerce_store_resolver\Resolver\CustomStoreResolver
+    arguments: ['@entity_type.manager', '@request_stack']
+    tags:
+      - { name: commerce_store.store_resolver, priority: 100 }

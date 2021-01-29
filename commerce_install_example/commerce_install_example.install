@@ -1,0 +1,137 @@
+<?php
+
+function commerce_install_example_install() {
+  /*
+   * Creating Store Type
+   */
+  $store_type = \Drupal\commerce_store\Entity\StoreType::create([
+    'id' => 'custom_store_type',
+    'label' => 'My custom store type',
+    'description' => 'This is my custom store type!',
+  ]);
+
+  $store_type->save();
+
+  /*
+   * Creating Store
+   */
+  $store = \Drupal\commerce_store\Entity\Store::create([
+    'type' => 'custom_store_type',
+    'uid' => 25,
+    'name' => 'My Custom Store',
+    'mail' => 'admin@example.com',
+    'address' => [
+      'country_code' => 'US',
+      'address_line1' => '123 Street Drive',
+      'locality' => 'Beverly Hills',
+      'administrative_area' => 'CA',
+      'postal_code' => '90210',
+    ],
+    'default_currency' => 'USD',
+    'billing_countries' => [
+      'US',
+    ],
+  ]);
+
+  // Save the store.
+  $store->save();
+
+//  Loading a store
+//  If you already have a store, you can load by it's id:
+//  $store = \Drupal\commerce_store\Entity\Store::load(1);
+
+  // If needed, this sets the store as the default store.
+  $store_storage = \Drupal::service('entity_type.manager')->getStorage('commerce_store');
+  $store_storage->markAsDefault($store);
+
+  // Create the product type.
+  $product_type = \Drupal\commerce_product\Entity\ProductType::create([
+    'id' => 'my_custom_product_type',
+    'label' => "My custom product type",
+    'description' => 'This is the description of the product',
+    'variationType' => 'my_custom_variation_type',
+    'status' => TRUE,
+    'multipleVariations' => TRUE,
+    'injectVariationFields' => TRUE,
+  ]);
+  $product_type->save();
+
+  // These three functions must be called to add the appropriate fields to the type
+  commerce_product_add_variations_field($product_type);
+  commerce_product_add_stores_field($product_type);
+  commerce_product_add_body_field($product_type);
+
+// Create the product variation type.
+  $variation_type = \Drupal\commerce_product\Entity\ProductVariationType::create([
+    'id' => 'my_custom_variation_type',
+    'label' => 'Variation Type With Color',
+    'status' => TRUE,
+    'orderItemType' => 'default',
+    'generateTitle' => TRUE,
+  ]);
+  $variation_type->save();
+
+// Creating product attributes
+  $color_attribute = \Drupal\commerce_product\Entity\ProductAttribute::create([
+    'id' => 'color',
+    'label' => 'Color',
+  ]);
+  $color_attribute->save();
+
+  $size_attribute = \Drupal\commerce_product\Entity\ProductAttribute::create([
+    'id' => 'size',
+    'label' => 'Size',
+  ]);
+  $size_attribute->save();
+
+  // We load a service that adds the attributes to the variation type we made previously.
+  $attribute_field_manager = \Drupal::service('commerce_product.attribute_field_manager');
+
+  $attribute_field_manager->createField($color_attribute, 'my_custom_variation_type');
+  $attribute_field_manager->createField($size_attribute, 'my_custom_variation_type');
+
+  // Creating values for an attribute
+  $red = \Drupal\commerce_product\Entity\ProductAttributeValue::create([
+    'attribute' => 'color',
+    'name' => 'Red',
+  ]);
+  $red->save();
+
+  $medium = \Drupal\commerce_product\Entity\ProductAttributeValue::create([
+    'attribute' => 'size',
+    'name' => 'Medium',
+  ]);
+  $medium->save();
+
+  // Create variations
+
+  $variation1 = \Drupal\commerce_product\Entity\ProductVariation::create([
+    'type' => 'my_custom_variation_type',
+    'sku' => 'test-product-0',
+    'price' => new \Drupal\commerce_price\Price('24.99', 'USD'),
+    'attribute_color' => 'red',
+    'attribute_size' => 'medium',
+  ]);
+  $variation1->save();
+
+  $variation2 = \Drupal\commerce_product\Entity\ProductVariation::create([
+    'type' => 'my_custom_variation_type',
+    'sku' => 'test-product-1',
+    'price' => new \Drupal\commerce_price\Price('50', 'USD'),
+    'attribute_color' => 'red',
+    'attribute_size' => 'medium',
+  ]);
+  $variation2->save();
+
+// Create product using variations previously saved
+
+  $product = \Drupal\commerce_product\Entity\Product::create([
+    'uid' => 1,
+    'type' => 'my_custom_product_type',
+    'title' => t('My amazing product'),
+    'body' => t('Body of  amazing product'),
+    'stores' => 25,
+    'variations' => [$variation1, $variation2],
+  ]);
+  $product->save();
+}

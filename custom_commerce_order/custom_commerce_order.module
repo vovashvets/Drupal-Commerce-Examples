@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function custom_commerce_order_theme($existing, $type, $theme, $path) {
+  return [
+    'commerce_order_receipt' => [
+      'template' => 'custom-mail-order-receipt',
+      'base hook' => 'commerce_order_receipt',
+    ],
+  ];
+}

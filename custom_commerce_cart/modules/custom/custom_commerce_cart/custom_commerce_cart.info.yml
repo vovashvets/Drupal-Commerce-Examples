@@ -1,0 +1,5 @@
+name: 'Custom commerce Cart'
+type: module
+description: 'Provides custom Add to Cart form and Add to Cart event subscriber'
+package: Commerce
+core_version_requirement: ^8 || ^9

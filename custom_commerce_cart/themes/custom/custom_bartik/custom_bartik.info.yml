@@ -1,0 +1,13 @@
+name: Custom Bartik
+type: theme
+description: 'Custom theme for Commerce Cart.'
+core_version_requirement: ^8 || ^9
+base theme: bartik
+
+libraries-override:
+  commerce_cart/cart_block:
+    css:
+      layout:
+        css/commerce_cart.layout.css: css/custom_commerce_cart.layout.css
+      theme:
+        css/commerce_cart.theme.css: css/custom_commerce_cart.theme.css

@@ -1,0 +1,5 @@
+cart_empty:
+  category: commerce_cart
+  label: 'Cart empty'
+  template: '<p><strong>There are no any products in this cart</strong></p>'
+

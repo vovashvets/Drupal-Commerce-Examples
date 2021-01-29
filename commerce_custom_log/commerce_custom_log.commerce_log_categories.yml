@@ -1,0 +1,3 @@
+commerce_cart:
+  label: Cart
+  entity_type: commerce_order

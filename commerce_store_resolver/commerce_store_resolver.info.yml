@@ -1,0 +1,5 @@
+name: "Commerce Store Resolver"
+type: module
+description: 'Provides Commerce Store Resolver.'
+package: Custom
+core_version_requirement: ^8.8 || ^9

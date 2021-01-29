@@ -1,0 +1,6 @@
+services:
+  commerce_custom_log.empty_cart_subscriber:
+    class: Drupal\commerce_custom_log\EventSubscriber\EmptyCartEventSubscriber
+    arguments: ['@entity_type.manager']
+    tags:
+      - { name: event_subscriber }

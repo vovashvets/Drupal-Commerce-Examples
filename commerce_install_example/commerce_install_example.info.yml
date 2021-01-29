@@ -1,0 +1,5 @@
+name: 'Commerce Install Example'
+type: module
+description: 'Provides commerce store, store type, product, product type and more.'
+package: Commerce
+core_version_requirement: ^8 || ^9
